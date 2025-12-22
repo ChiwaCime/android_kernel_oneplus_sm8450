@@ -26,7 +26,6 @@
 #include <linux/miscdevice.h>
 #include <linux/uaccess.h>
 #include <linux/leds.h>
-#include <soc/oplus/system/oplus_project.h>
 #include "leds_aw210xx.h"
 #include "leds_aw210xx_reg.h"
 
@@ -1165,12 +1164,8 @@ static ssize_t aw210xx_led_toff_attr_store(struct device *dev,
 static ssize_t aw210xx_led_support_attr_show (struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
-	int prj_id = 0;
 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
 	struct aw210xx *led = container_of(led_cdev, struct aw210xx, cdev);
-
-	prj_id = get_project();
-
 	return snprintf(buf, PAGE_SIZE, "%s-%u\n",LED_SUPPORT_TYPE,led->cdev.max_brightness);
 }
 
